@@ -34,6 +34,7 @@ class WebVitals implements IWebVitals {
 
   constructor(config: IConfig) {
     const {
+      pid,
       appId,
       version,
       reportCallback,
@@ -51,7 +52,7 @@ class WebVitals implements IWebVitals {
 
     const sessionId = generateUniqueID()
     window.__monitor_sessionId__ = sessionId
-    reporter = createReporter(sessionId, appId, version, reportCallback)
+    reporter = createReporter(sessionId, pid, appId, version, reportCallback)
     metricsStore = new MetricsStore()
 
     initPageInfo(metricsStore, reporter, immediately)

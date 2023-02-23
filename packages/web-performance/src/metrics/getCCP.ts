@@ -31,11 +31,13 @@ const storeMetrics = (name, value, store, scoreConfig) => {
   let metrics
 
   if (name === metricsName.ACT) {
-    score = calcScore(name, value.time, scoreConfig)
+    score = calcScore(name, value, scoreConfig)
     metrics = { name, value, score }
   } else if (name === metricsName.CCP) {
     score = calcScore(name, value, scoreConfig)
     metrics = { name, value, score }
+  } else if(name === metricsName.RL){
+    return
   } else {
     metrics = { name, value }
   }
@@ -110,7 +112,9 @@ const afterHandler = (url, apiConfig, store, hashHistory, excludeRemotePath, sco
             remoteQueue.hasStoreMetrics = true
             const now = performance.now()
             if (now < getFirstHiddenTime().timeStamp) {
-              storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
+              // storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
+              //先改为只传时间
+              storeMetrics(metricsName.ACT, now, store, scoreConfig)
               computeCCPAndRL(store, scoreConfig)
             }
           }
@@ -120,7 +124,9 @@ const afterHandler = (url, apiConfig, store, hashHistory, excludeRemotePath, sco
             remoteQueue.hasStoreMetrics = true
             const now = performance.now()
             if (now < getFirstHiddenTime().timeStamp) {
-              storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
+              // storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
+              //先改为只传时间
+              storeMetrics(metricsName.ACT, now, store, scoreConfig)
               computeCCPAndRL(store, scoreConfig)
             }
           }
@@ -136,26 +142,26 @@ const reportMetrics = (store: metricsStore, report) => {
   if (reportLock) {
     const act = store.get(metricsName.ACT)
     const ccp = store.get(metricsName.CCP)
-    const rl = store.get(metricsName.RL)
-
+    // const rl = store.get(metricsName.RL)
     if (act && ccp) {
-      if (act.value.time < ccp.value) {
+      if (act.value < ccp.value) {
+     
         report(act)
         report(ccp)
 
-        if (rl) {
-          report(rl)
-        }
+        // if (rl) {
+        //   report(rl)
+        // }
       }
     }
 
-    if (!act && ccp) {
-      report(ccp)
+    // if (!act && ccp) {
+    //   report(ccp)
 
-      if (rl) {
-        report(rl)
-      }
-    }
+    //   if (rl) {
+    //     report(rl)
+    //   }
+    // }
 
     reportLock = false
   }
@@ -200,7 +206,10 @@ export const initCCP = (
             if (isEqualArr(remoteQueue.queue, completeQueue) && !remoteQueue.hasStoreMetrics) {
               console.log('api list = ', remoteQueue.queue)
               remoteQueue.hasStoreMetrics = true
-              storeMetrics(metricsName.ACT, { time: performance.now(), remoteApis: remoteQueue.queue }, store, scoreConfig)
+              
+              // storeMetrics(metricsName.ACT, { time: performance.now(), remoteApis: remoteQueue.queue }, store, scoreConfig)
+              //先改为只传时间
+              storeMetrics(metricsName.ACT, performance.now(), store, scoreConfig)
             }
             computeCCPAndRL(store, scoreConfig)
           }

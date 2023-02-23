@@ -1,4 +1,5 @@
 export interface IConfig {
+  pid?: string
   appId?: string
   version?: string
   reportCallback: Function
@@ -105,6 +106,7 @@ export interface OnPageChangeCallback {
 
 export interface IReportData {
   sessionId: string
+  pid:string
   appId?: string
   version?: string
   data: IMetrics | IMetricsObj
