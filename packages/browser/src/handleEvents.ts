@@ -82,8 +82,8 @@ const HandleEvents = {
       name,
       message: msg,
       level: Severity.Normal,
-      time: getTimestamp(),
-      stack: [element]
+      time: getTimestamp()
+      // stack: [element]
     }
   },
   handleHistory(data: Replace.IRouter): void {

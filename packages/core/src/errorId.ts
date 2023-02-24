@@ -7,25 +7,25 @@ const allErrorNumber: unknown = {}
  * generate error unique Id
  * @param data
  */
-export function createErrorId(data: ReportDataType, apikey: string): number | null {
+export function createErrorId(data: ReportDataType, pid: string): number | null {
   let id: any
   switch (data.type) {
     case ERRORTYPES.FETCH_ERROR:
-      id = data.type + data.request.method + data.response.status + getRealPath(data.request.url) + apikey
+      id = data.type + data.request.method + data.response.status + getRealPath(data.request.url) + pid
       break
     case ERRORTYPES.JAVASCRIPT_ERROR:
     case ERRORTYPES.VUE_ERROR:
     case ERRORTYPES.REACT_ERROR:
-      id = data.type + data.name + data.message + apikey
+      id = data.type + data.name + data.message + pid
       break
     case ERRORTYPES.LOG_ERROR:
-      id = data.customTag + data.type + data.name + apikey
+      id = data.customTag + data.type + data.name + pid
       break
     case ERRORTYPES.PROMISE_ERROR:
-      id = generatePromiseErrorId(data, apikey)
+      id = generatePromiseErrorId(data, pid)
       break
     default:
-      id = data.type + data.message + apikey
+      id = data.type + data.message + pid
       break
   }
   id = hashCode(id)
@@ -46,10 +46,10 @@ export function createErrorId(data: ReportDataType, apikey: string): number | nu
  * @param data
  * @param originUrl
  */
-function generatePromiseErrorId(data: ReportDataType, apikey: string) {
+function generatePromiseErrorId(data: ReportDataType, pid: string) {
   const locationUrl = getRealPath(data.url)
   if (data.name === EVENTTYPES.UNHANDLEDREJECTION) {
-    return data.type + objectOrder(data.message) + apikey
+    return data.type + objectOrder(data.message) + pid
   }
   return data.type + data.name + objectOrder(data.message) + locationUrl
 }

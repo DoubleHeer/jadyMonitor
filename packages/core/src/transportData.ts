@@ -18,7 +18,8 @@ export class TransportData {
   configReportUrl: unknown = null
   configReportWxRequest: unknown = null
   useImgUpload = false
-  apikey = ''
+  pid = ''
+  sessionId= ''
   trackKey = ''
   errorDsn = ''
   trackDsn = ''
@@ -46,7 +47,7 @@ export class TransportData {
   }
   async beforePost(data: FinalReportType) {
     if (isReportDataType(data)) {
-      const errorId = createErrorId(data, this.apikey)
+      const errorId = createErrorId(data, this.pid)
       if (!errorId) return false
       data.errorId = errorId
     }
@@ -94,12 +95,16 @@ export class TransportData {
       sdkVersion: SDK_VERSION,
       sdkName: SDK_NAME
     }
-    this.apikey && (result.apikey = this.apikey)
+    this.pid && (result.pid = this.pid)
+    this.sessionId && (result.sessionId = this.sessionId)
     this.trackKey && (result.trackKey = this.trackKey)
     return result
   }
-  getApikey() {
-    return this.apikey
+  getpid() {
+    return this.pid
+  }
+  getsessionId() {
+    return this.sessionId
   }
   getTrackKey() {
     return this.trackKey
@@ -139,7 +144,8 @@ export class TransportData {
     const {
       dsn,
       beforeDataReport,
-      apikey,
+      pid,
+      sessionId,
       configReportXhr,
       backTrackerId,
       trackDsn,
@@ -148,7 +154,8 @@ export class TransportData {
       useImgUpload,
       configReportWxRequest
     } = options
-    validateOption(apikey, 'apikey', 'string') && (this.apikey = apikey)
+    validateOption(pid, 'pid', 'string') && (this.pid = pid)
+    validateOption(sessionId, 'sessionId', 'string') && (this.sessionId = sessionId)
     validateOption(trackKey, 'trackKey', 'string') && (this.trackKey = trackKey)
     validateOption(dsn, 'dsn', 'string') && (this.errorDsn = dsn)
     validateOption(trackDsn, 'trackDsn', 'string') && (this.trackDsn = trackDsn)
@@ -187,7 +194,7 @@ export class TransportData {
     }
 
     if (isBrowserEnv) {
-      return this.useImgUpload ? this.imgRequest(result, dsn) : this.xhrPost(result, dsn)
+        return this.useImgUpload ? this.imgRequest(result, dsn) : this.xhrPost(result, dsn)
     }
     if (isWxMiniEnv) {
       return this.wxPost(result, dsn)

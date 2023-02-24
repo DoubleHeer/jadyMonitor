@@ -1,5 +1,6 @@
 export interface IConfig {
   pid?: string
+  sessionId?:string
   appId?: string
   version?: string
   reportCallback: Function
