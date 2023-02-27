@@ -29,13 +29,13 @@ export class Breadcrumb {
     this.immediatePush(data)
   }
   immediatePush(data: BreadcrumbPushData): void {
-    data.time || (data.time = getTimestamp())
+    data.timestamp || (data.timestamp = getTimestamp())
     if (this.stack.length >= this.maxBreadcrumbs) {
       this.shift()
     }
     this.stack.push(data)
     // make sure xhr fetch is behind button click
-    this.stack.sort((a, b) => a.time - b.time)
+    this.stack.sort((a, b) => a.timestamp - b.timestamp)
     logger.log(this.stack)
   }
   shift(): boolean {

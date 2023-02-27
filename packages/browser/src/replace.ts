@@ -96,7 +96,7 @@ function xhrReplace(): void {
         const { responseType, response, status } = this
         this.mito_xhr.reqData = args[0]
         const eTime = getTimestamp()
-        this.mito_xhr.time = this.mito_xhr.sTime
+        this.mito_xhr.timestamp = this.mito_xhr.sTime
         this.mito_xhr.status = status
         if (['', 'json', 'text'].indexOf(responseType) !== -1) {
           this.mito_xhr.responseText = typeof response === 'object' ? JSON.stringify(response) : response
@@ -146,7 +146,7 @@ function fetchReplace(): void {
             elapsedTime: eTime - sTime,
             status: tempRes.status,
             // statusText: tempRes.statusText,
-            time: sTime
+            timestamp: sTime
           }
           tempRes.text().then((data) => {
             if (method === EMethods.Post && transportData.isSdkTransportUrl(url)) return
@@ -165,7 +165,7 @@ function fetchReplace(): void {
             elapsedTime: eTime - sTime,
             status: 0,
             // statusText: err.name + err.message,
-            time: sTime
+            timestamp: sTime
           }
           triggerHandlers(EVENTTYPES.FETCH, handlerData)
           throw err

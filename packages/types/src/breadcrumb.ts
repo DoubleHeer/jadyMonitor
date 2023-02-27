@@ -15,6 +15,6 @@ export interface BreadcrumbPushData {
    * 分为user action、debug、http、
    */
   category?: string
-  time?: number
+  timestamp?: number
   level: Severity
 }

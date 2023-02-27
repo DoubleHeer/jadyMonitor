@@ -36,9 +36,9 @@ export function log({ message = 'emptyMsg', tag = '', level = Severity.Info, ex 
     type,
     level,
     message: unknownToString(message),
-    name: 'MITO.log',
+    name: 'jamito-log',
     customTag: unknownToString(tag),
-    time: getTimestamp(),
+    timestamp: getTimestamp(),
     url: isWxMiniEnv ? getCurrentRoute() : getLocationHref(),
     ...errorInfo
   }

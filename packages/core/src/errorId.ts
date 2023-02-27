@@ -11,7 +11,7 @@ export function createErrorId(data: ReportDataType, pid: string): number | null 
   let id: any
   switch (data.type) {
     case ERRORTYPES.FETCH_ERROR:
-      id = data.type + data.request.method + data.response.status + getRealPath(data.request.url) + pid
+      id = data.type + data.request.method + data.response.status + getRealPath(data.request.reqUrl) + pid
       break
     case ERRORTYPES.JAVASCRIPT_ERROR:
     case ERRORTYPES.VUE_ERROR:

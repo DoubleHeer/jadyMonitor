@@ -20,7 +20,7 @@ export function handleVueError(
     url: getLocationHref(),
     name: err.name,
     stack: err.stack || [],
-    time: getTimestamp()
+    timestamp: getTimestamp()
   }
   if (variableTypeDetection.isString(version)) {
     console.log('getBigVersion', getBigVersion(version))

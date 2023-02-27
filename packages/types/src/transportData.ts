@@ -32,7 +32,7 @@ export interface ReportDataType extends ICommonDataType {
   url: string
   name?: string
   stack?: any
-  time?: number
+  timestamp?: number
   errorId?: number
   level: string
   // ajax
@@ -41,12 +41,12 @@ export interface ReportDataType extends ICommonDataType {
     httpType?: string
     traceId?: string
     method: string
-    url: string
-    data: any
+    reqUrl: string
+    reqData: any
   }
   response?: {
     status: number
-    data: string
+    repData: string
   }
   // vue
   componentName?: string

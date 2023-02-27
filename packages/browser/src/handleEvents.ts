@@ -15,7 +15,7 @@ const HandleEvents = {
       category: breadcrumb.getCategory(type),
       data: { ...result },
       level: Severity.Info,
-      time: data.time
+      timestamp: data.timestamp
     })
     if (isError) {
       breadcrumb.push({
@@ -23,7 +23,7 @@ const HandleEvents = {
         category: breadcrumb.getCategory(BREADCRUMBTYPES.CODE_ERROR),
         data: { ...result },
         level: Severity.Error,
-        time: data.time
+        timestamp: data.timestamp
       })
       transportData.send(result)
     }
@@ -82,7 +82,7 @@ const HandleEvents = {
       name,
       message: msg,
       level: Severity.Normal,
-      time: getTimestamp()
+      timestamp: getTimestamp()
       // stack: [element]
     }
   },
@@ -128,7 +128,7 @@ const HandleEvents = {
       message: unknownToString(ev.reason),
       url: getLocationHref(),
       name: ev.type,
-      time: getTimestamp(),
+      timestamp: getTimestamp(),
       level: Severity.Low
     }
     if (isError(ev.reason)) {

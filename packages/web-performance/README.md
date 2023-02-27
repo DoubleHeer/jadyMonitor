@@ -1,29 +1,5 @@
 # 性能监控
 
-## 安装
-使用npm
-```bash
-npm i @zyf2e/monitor-web-performance
-```
-使用yarn
-```bash
-yarn add @zyf2e/monitor-web-performance
-```
-使用cdn
-```bash
-<script src="https://cdn.jsdelivr.net/npm/@mitojs/web/dist/web-performance.min.js"></script>
-```
-
-## 快速开始
-```javascript
- let wv = new MITO.WebVitals({
-    appId: 'allen-test',
-    version: '1.0.0',
-    reportCallback: console.log,
-    immediately: true
-  })
-```
-
 ## API
 + constructor
 
