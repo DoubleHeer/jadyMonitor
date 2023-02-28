@@ -1,4 +1,4 @@
-import { getAppId, isWxMiniEnv, variableTypeDetection } from '../../utils/src/index'
+import { variableTypeDetection } from '../../utils/src/index'
 import { ERRORTYPES, EVENTTYPES } from '../../shared/src/index'
 import { ReportDataType } from '../../types/src/index'
 import { options } from './options'
@@ -9,23 +9,23 @@ const allErrorNumber: unknown = {}
  */
 export function createErrorId(data: ReportDataType, pid: string): number | null {
   let id: any
-  switch (data.type) {
+  switch (data.name) {
     case ERRORTYPES.FETCH_ERROR:
-      id = data.type + data.request.method + data.response.status + getRealPath(data.request.reqUrl) + pid
+      id = data.name + data.request.method + data.response.status + getRealPath(data.request.reqUrl) + pid
       break
     case ERRORTYPES.JAVASCRIPT_ERROR:
     case ERRORTYPES.VUE_ERROR:
     case ERRORTYPES.REACT_ERROR:
-      id = data.type + data.name + data.message + pid
+      id = data.name + data.errorname + data.message + pid
       break
     case ERRORTYPES.LOG_ERROR:
-      id = data.customTag + data.type + data.name + pid
+      id = data.customTag + data.name + data.errorname + pid
       break
     case ERRORTYPES.PROMISE_ERROR:
       id = generatePromiseErrorId(data, pid)
       break
     default:
-      id = data.type + data.message + pid
+      id = data.name + data.message + pid
       break
   }
   id = hashCode(id)
@@ -48,10 +48,10 @@ export function createErrorId(data: ReportDataType, pid: string): number | null 
  */
 function generatePromiseErrorId(data: ReportDataType, pid: string) {
   const locationUrl = getRealPath(data.url)
-  if (data.name === EVENTTYPES.UNHANDLEDREJECTION) {
-    return data.type + objectOrder(data.message) + pid
+  if (data.errorname === EVENTTYPES.UNHANDLEDREJECTION) {
+    return data.name + objectOrder(data.message) + pid
   }
-  return data.type + data.name + objectOrder(data.message) + locationUrl
+  return data.name + data.errorname + objectOrder(data.message) + locationUrl
 }
 
 /**
@@ -118,9 +118,6 @@ export function getRealPageOrigin(url: string): string {
   const fileStartReg = /^file:\/\//
   if (fileStartReg.test(url)) {
     return getFlutterRealOrigin(url)
-  }
-  if (isWxMiniEnv) {
-    return getAppId()
   }
   return getRealPath(removeHashPath(url).replace(/(\S*)(\/\/)(\S+)/, '$3'))
 }

@@ -1,4 +1,4 @@
-import { _support, validateOption, logger, isBrowserEnv, isWxMiniEnv, variableTypeDetection, Queue, isEmpty } from '../../utils/src/index'
+import { _support, validateOption, logger, isBrowserEnv, variableTypeDetection, Queue, isEmpty } from '../../utils/src/index'
 import { createErrorId } from './errorId'
 import { SDK_NAME, SDK_VERSION } from '../../shared/src/index'
 import { breadcrumb } from './breadcrumb'
@@ -71,23 +71,7 @@ export class TransportData {
     }
     this.queue.addFn(requestFun)
   }
-  async wxPost(data: any, url: string) {
-    const requestFun = (): void => {
-      let requestOptions = { method: 'POST' } as WechatMiniprogram.RequestOption
-      if (typeof this.configReportWxRequest === 'function') {
-        const params = this.configReportWxRequest(data)
-        // default method
-        requestOptions = { ...requestOptions, ...params }
-      }
-      requestOptions = {
-        ...requestOptions,
-        data: JSON.stringify(data),
-        url
-      }
-      wx.request(requestOptions)
-    }
-    this.queue.addFn(requestFun)
-  }
+
   getAuthInfo(): AuthInfo {
     const trackerId = this.getTrackerId()
     const result: AuthInfo = {
@@ -151,8 +135,7 @@ export class TransportData {
       trackDsn,
       trackKey,
       configReportUrl,
-      useImgUpload,
-      configReportWxRequest
+      useImgUpload
     } = options
     validateOption(pid, 'pid', 'string') && (this.pid = pid)
     validateOption(sessionId, 'sessionId', 'string') && (this.sessionId = sessionId)
@@ -164,7 +147,6 @@ export class TransportData {
     validateOption(configReportXhr, 'configReportXhr', 'function') && (this.configReportXhr = configReportXhr)
     validateOption(backTrackerId, 'backTrackerId', 'function') && (this.backTrackerId = backTrackerId)
     validateOption(configReportUrl, 'configReportUrl', 'function') && (this.configReportUrl = configReportUrl)
-    validateOption(configReportWxRequest, 'configReportWxRequest', 'function') && (this.configReportWxRequest = configReportWxRequest)
   }
   /**
    * 监控错误上报的请求函数
@@ -195,9 +177,6 @@ export class TransportData {
 
     if (isBrowserEnv) {
         return this.useImgUpload ? this.imgRequest(result, dsn) : this.xhrPost(result, dsn)
-    }
-    if (isWxMiniEnv) {
-      return this.wxPost(result, dsn)
     }
   }
 }

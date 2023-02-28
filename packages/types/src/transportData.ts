@@ -27,10 +27,10 @@ interface ICommonDataType {
 }
 
 export interface ReportDataType extends ICommonDataType {
-  type?: string
+  name?: string
   message?: string
   url: string
-  name?: string
+  errorname?: string
   stack?: any
   timestamp?: number
   errorId?: number

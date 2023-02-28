@@ -37,36 +37,10 @@ export class Options {
       traceIdFieldName,
       throttleDelayTime,
       includeHttpUrlTraceIdRegExp,
-      appOnLaunch,
-      appOnShow,
-      appOnHide,
-      pageOnUnload,
-      pageOnShow,
-      pageOnHide,
-      onPageNotFound,
-      onShareAppMessage,
-      onShareTimeline,
-      onTabItemTap,
-      wxNavigateToMiniProgram,
-      triggerWxEvent,
       maxDuplicateCount,
       onRouteChange
     } = options
     validateOption(beforeAppAjaxSend, 'beforeAppAjaxSend', 'function') && (this.beforeAppAjaxSend = beforeAppAjaxSend)
-    // wx-mini hooks
-    validateOption(appOnLaunch, 'appOnLaunch', 'function') && (this.appOnLaunch = appOnLaunch)
-    validateOption(appOnShow, 'appOnShow', 'function') && (this.appOnShow = appOnShow)
-    validateOption(appOnHide, 'appOnHide', 'function') && (this.appOnHide = appOnHide)
-    validateOption(pageOnUnload, 'pageOnUnload', 'function') && (this.pageOnUnload = pageOnUnload)
-    validateOption(pageOnShow, 'pageOnShow', 'function') && (this.pageOnShow = pageOnShow)
-    validateOption(pageOnHide, 'pageOnHide', 'function') && (this.pageOnHide = pageOnHide)
-    validateOption(onPageNotFound, 'onPageNotFound', 'function') && (this.onPageNotFound = onPageNotFound)
-    validateOption(onShareAppMessage, 'onShareAppMessage', 'function') && (this.onShareAppMessage = onShareAppMessage)
-    validateOption(onShareTimeline, 'onShareTimeline', 'function') && (this.onShareTimeline = onShareTimeline)
-    validateOption(onTabItemTap, 'onTabItemTap', 'function') && (this.onTabItemTap = onTabItemTap)
-    validateOption(wxNavigateToMiniProgram, 'wxNavigateToMiniProgram', 'function') &&
-      (this.wxNavigateToMiniProgram = wxNavigateToMiniProgram)
-    validateOption(triggerWxEvent, 'triggerWxEvent', 'function') && (this.triggerWxEvent = triggerWxEvent)
     // browser hooks
     validateOption(onRouteChange, 'onRouteChange', 'function') && (this.onRouteChange = onRouteChange)
 

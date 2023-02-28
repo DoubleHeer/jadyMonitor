@@ -52,7 +52,7 @@ const HandleEvents = {
     }
     // 处理SyntaxError，stack没有lineno、colno
     result || (result = HandleEvents.handleNotErrorInstance(message, filename, lineno, colno))
-    result.type = ERRORTYPES.JAVASCRIPT_ERROR
+    result.name = ERRORTYPES.JAVASCRIPT_ERROR
     breadcrumb.push({
       type: BREADCRUMBTYPES.CODE_ERROR,
       category: breadcrumb.getCategory(BREADCRUMBTYPES.CODE_ERROR),
@@ -124,10 +124,10 @@ const HandleEvents = {
   },
   handleUnhandleRejection(ev: PromiseRejectionEvent): void {
     let data: ReportDataType = {
-      type: ERRORTYPES.PROMISE_ERROR,
+      name: ERRORTYPES.PROMISE_ERROR,
       message: unknownToString(ev.reason),
       url: getLocationHref(),
-      name: ev.type,
+      errorname: ev.type,
       timestamp: getTimestamp(),
       level: Severity.Low
     }

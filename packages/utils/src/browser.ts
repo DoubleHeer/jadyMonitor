@@ -60,14 +60,6 @@ export function setSilentFlag(paramOptions: InitOptions = {}): void {
   setFlag(EVENTTYPES.HASHCHANGE, !!paramOptions.silentHashchange)
   setFlag(EVENTTYPES.UNHANDLEDREJECTION, !!paramOptions.silentUnhandledrejection)
   setFlag(EVENTTYPES.VUE, !!paramOptions.silentVue)
-  // wx App
-  setFlag(WxAppEvents.AppOnError, !!paramOptions.silentWxOnError)
-  setFlag(WxAppEvents.AppOnUnhandledRejection, !!paramOptions.silentUnhandledrejection)
-  setFlag(WxAppEvents.AppOnPageNotFound, !!paramOptions.silentWxOnPageNotFound)
-  // wx Page
-  setFlag(WxPageEvents.PageOnShareAppMessage, !!paramOptions.silentWxOnShareAppMessage)
-  // mini Route
-  setFlag(EVENTTYPES.MINI_ROUTE, !!paramOptions.silentMiniRoute)
 }
 
 /**
@@ -79,7 +71,7 @@ export function extractErrorStack(ex: any, level: Severity): ReportDataType {
   const normal = {
     timestamp: getTimestamp(),
     url: getLocationHref(),
-    name: ex.name,
+    errorname: ex.name,
     level,
     message: ex.message
   }

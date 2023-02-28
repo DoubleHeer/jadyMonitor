@@ -5,7 +5,6 @@ import {
   getLocationHref,
   getTimestamp,
   unknownToString,
-  isWxMiniEnv,
   Severity,
   getCurrentRoute
 } from '../../utils/src/index'
@@ -39,7 +38,7 @@ export function log({ message = 'emptyMsg', tag = '', level = Severity.Info, ex 
     name: 'jamito-log',
     customTag: unknownToString(tag),
     timestamp: getTimestamp(),
-    url: isWxMiniEnv ? getCurrentRoute() : getLocationHref(),
+    url: getLocationHref(),
     ...errorInfo
   }
   breadcrumb.push({

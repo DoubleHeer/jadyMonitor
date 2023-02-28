@@ -7,7 +7,7 @@ import { breadcrumb } from './breadcrumb'
 export function httpTransform(data: MITOHttp): ReportDataType {
   let message = ''
   const { elapsedTime, timestamp, method, traceId, type, status } = data
-  const name = `${type}--${method}`
+  const errorname = `${type}--${method}`
   if (status === 0) {
     message =
       elapsedTime <= globalVar.crossOriginThreshold ? 'http请求失败，失败原因：跨域限制或域名不存在' : 'http请求失败，失败原因：超时'
@@ -16,13 +16,13 @@ export function httpTransform(data: MITOHttp): ReportDataType {
   }
   message = message === SpanStatus.Ok ? message : `${message} ${getRealPath(data.url)}`
   return {
-    type: ERRORTYPES.FETCH_ERROR,
+    name: ERRORTYPES.FETCH_ERROR,
     url: getLocationHref(),
     timestamp,
     elapsedTime,
     level: Severity.Low,
     message,
-    name,
+    errorname,
     request: {
       httpType: type,
       traceId,
@@ -44,12 +44,12 @@ const resourceMap = {
 
 export function resourceTransform(target: ResourceErrorTarget): ReportDataType {
   return {
-    type: ERRORTYPES.RESOURCE_ERROR,
+    name: ERRORTYPES.RESOURCE_ERROR,
     url: getLocationHref(),
     message: '资源地址: ' + (interceptStr(target.src, 120) || interceptStr(target.href, 120)),
     level: Severity.Low,
     timestamp: getTimestamp(),
-    name: `${resourceMap[target.localName] || target.localName}加载失败`
+    errorname: `${resourceMap[target.localName] || target.localName}加载失败`
   }
 }
 

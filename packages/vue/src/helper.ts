@@ -14,11 +14,11 @@ export function handleVueError(
 ): void {
   const version = Vue?.version
   let data: ReportDataType = {
-    type: ERRORTYPES.VUE_ERROR,
+    name: ERRORTYPES.VUE_ERROR,
     message: `${err.message}(${info})`,
     level,
     url: getLocationHref(),
-    name: err.name,
+    errorname: err.name,
     stack: err.stack || [],
     timestamp: getTimestamp()
   }
