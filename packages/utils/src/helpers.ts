@@ -121,6 +121,51 @@ export const throttle = (fn: Function, delay: number): Function => {
 }
 
 /**
+ * 上报参数处理，
+ * ../returns 返回单层json对象
+ */
+export function analyseReoprtData(metrics:any,baseMData:any):any{
+  var data = metrics.data;
+  var reportData = {
+      timestamp:metrics.timestamp,
+      ...baseMData
+  }
+  const keys = Object.keys(data);
+  for (let i = 0; i < keys.length; i++) {
+      if (Object.prototype.toString.call(data[keys[i]]) === '[object Array]') {
+          continue;
+      }
+      if( Object.prototype.toString.call(data[keys[i]]) === '[object Object]'){
+          var subItem = data[keys[i]];
+          const subkeys = Object.keys(subItem);
+          for (let j = 0; j < subkeys.length; j++) {
+              if ( (Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Object]')
+              || (Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Array]')) {
+               continue;
+              }
+              reportData[subkeys[j]] = subItem[subkeys[j]];
+          }
+          continue;
+      }
+      reportData[keys[i]] = data[keys[i]];
+  }
+ return reportData;
+
+}
+/**
+ * json字段解析
+ * ../returns 返回当前get形式入参
+ */
+export function encodeURIParams(data:any):string {
+  let url = '';
+  const keys = Object.keys(data)
+  for (const key of keys) {
+    url += `${key}=${encodeURIComponent(data[key])}&`
+  }
+  url = url.substring(0, url.length - 1)
+  return url
+}
+/**
  * 获取当前的时间戳
  * ../returns 返回当前时间戳
  */
@@ -205,23 +250,6 @@ export function interceptStr(str: string, interceptLength: number): string {
     return str.slice(0, interceptLength) + (str.length > interceptLength ? `:截取前${interceptLength}个字符` : '')
   }
   return ''
-}
-
-/**
- * 获取wx当前route的方法
- * 必须是在进入Page或Component构造函数内部才能够获取到currentPages
- * 否则都是在注册Page和Component时执行的代码，此时url默认返回'App'
- */
-export function getCurrentRoute() {
-  if (!variableTypeDetection.isFunction(getCurrentPages)) {
-    return ''
-  }
-  const pages = getCurrentPages() // 在App里调用该方法，页面还没有生成，长度为0
-  if (!pages.length) {
-    return 'App'
-  }
-  const currentPage = pages.pop()
-  return setUrlQuery(currentPage.route, currentPage.options)
 }
 
 /**

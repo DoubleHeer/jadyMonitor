@@ -71,7 +71,7 @@ export function extractErrorStack(ex: any, level: Severity): ReportDataType {
   const normal = {
     timestamp: getTimestamp(),
     url: getLocationHref(),
-    errorname: ex.name,
+    errorName: ex.name,
     level,
     message: ex.message
   }

@@ -1,9 +1,11 @@
 export interface IConfig {
   pid?: string
   sessionId?:string
+  dsn?:string
   appId?: string
   version?: string
-  reportCallback: Function
+  // reportCallback: Function
+  beforeReportHandle:Function
   immediately: boolean
   isCustomEvent?: boolean
   logFpsCount?: number

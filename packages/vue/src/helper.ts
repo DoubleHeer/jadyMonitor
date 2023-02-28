@@ -18,7 +18,7 @@ export function handleVueError(
     message: `${err.message}(${info})`,
     level,
     url: getLocationHref(),
-    errorname: err.name,
+    errorName: err.name,
     stack: err.stack || [],
     timestamp: getTimestamp()
   }

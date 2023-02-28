@@ -5,8 +5,7 @@ import {
   getLocationHref,
   getTimestamp,
   unknownToString,
-  Severity,
-  getCurrentRoute
+  Severity
 } from '../../utils/src/index'
 import { transportData } from './transportData'
 import { breadcrumb } from './breadcrumb'

@@ -16,10 +16,10 @@ export function createErrorId(data: ReportDataType, pid: string): number | null 
     case ERRORTYPES.JAVASCRIPT_ERROR:
     case ERRORTYPES.VUE_ERROR:
     case ERRORTYPES.REACT_ERROR:
-      id = data.name + data.errorname + data.message + pid
+      id = data.name + data.errorName + data.message + pid
       break
     case ERRORTYPES.LOG_ERROR:
-      id = data.customTag + data.name + data.errorname + pid
+      id = data.customTag + data.name + data.errorName + pid
       break
     case ERRORTYPES.PROMISE_ERROR:
       id = generatePromiseErrorId(data, pid)
@@ -48,10 +48,10 @@ export function createErrorId(data: ReportDataType, pid: string): number | null 
  */
 function generatePromiseErrorId(data: ReportDataType, pid: string) {
   const locationUrl = getRealPath(data.url)
-  if (data.errorname === EVENTTYPES.UNHANDLEDREJECTION) {
+  if (data.errorName === EVENTTYPES.UNHANDLEDREJECTION) {
     return data.name + objectOrder(data.message) + pid
   }
-  return data.name + data.errorname + objectOrder(data.message) + locationUrl
+  return data.name + data.errorName + objectOrder(data.message) + locationUrl
 }
 
 /**

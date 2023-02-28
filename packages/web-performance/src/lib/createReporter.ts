@@ -1,35 +1,49 @@
 import { IMetrics, IReportHandler, IReportData, IMetricsObj } from '../types'
-
+import { analyseReoprtData,encodeURIParams} from '../../../utils/src/index'
 /**
  * @param {string} sessionId
  * @param {string} pid
  * @param {string} appId
  * @param {string} version
- * @param {Function} callback
+ * @param {Function} beforeReportHCall
  * @returns {IReportHandler}
  */
 const createReporter =
-  (sessionId: string, pid: string, appId: string, version: string, callback: Function): IReportHandler =>
+  (sessionId: string, pid: string, appId: string, dsn: string, beforeReportHCall: Function): IReportHandler =>
   (data: IMetrics | IMetricsObj) => {
     const reportData: IReportData = {
       sessionId,
       pid,
       appId,
-      version,
       data,
       timestamp: +new Date()
     }
+    if(!beforeReportHCall)return
 
     if ('requestIdleCallback' in window) {
       ;(window as any).requestIdleCallback(
         () => {
-          callback(reportData)
+          var backData= beforeReportHCall(reportData,dsn)
+          if(!backData)return
+          const repData = analyseReoprtData(reportData,backData);
+          const repDataString = encodeURIParams(repData);
+          imgRequest(repDataString, dsn) 
         },
         { timeout: 3000 }
       )
     } else {
-      callback(reportData)
+      var backData= beforeReportHCall(reportData,dsn)
+      if(!backData)return
+      const repData = analyseReoprtData(reportData,backData);
+      const repDataString = encodeURIParams(repData);
+      imgRequest(repDataString, dsn) 
+      
     }
   }
 
+ function imgRequest(data: string, url: string): void {
+      let img = new Image()
+      img.src = `${url}${data}`
+      img = null
+}
 export default createReporter

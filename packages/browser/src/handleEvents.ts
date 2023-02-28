@@ -1,7 +1,7 @@
 import { BREADCRUMBTYPES, ERRORTYPES, ERROR_TYPE_RE, HTTP_CODE } from '../../shared/src/index'
 import { transportData, breadcrumb, resourceTransform, httpTransform, options } from '../../core/src/index';
 import { getLocationHref, getTimestamp, isError, parseUrlToObj, extractErrorStack, unknownToString, Severity } from '../../utils/src/index'
-import { ReportDataType, Replace, MITOHttp, ResourceErrorTarget } from '../../types/src/index'
+import { ReportDataType, Replace, MITOHttp, ResourceErrorTarget, PageViewReportData } from '../../types/src/index'
 
 const HandleEvents = {
   /**
@@ -102,6 +102,17 @@ const HandleEvents = {
     const { onRouteChange } = options;
     if (onRouteChange) {
       onRouteChange(from, to)
+    } else {
+      const eTime = getTimestamp();
+      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
+      let repData: PageViewReportData = {
+        name: ERRORTYPES.PAGE_VIEW,
+        pageName: from,
+        pageTime: pageTime,
+        timestamp: getTimestamp()
+      }
+      transportData.beginTime = eTime;
+      transportData.reportPageView(repData);
     }
   },
   handleHashchange(data: HashChangeEvent): void {
@@ -120,6 +131,17 @@ const HandleEvents = {
     const { onRouteChange } = options;
     if (onRouteChange) {
       onRouteChange(from, to)
+    } else {
+      const eTime = getTimestamp();
+      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
+      let repData: PageViewReportData = {
+        name: ERRORTYPES.PAGE_VIEW,
+        pageName: from,
+        pageTime: pageTime,
+        timestamp: getTimestamp()
+      }
+      transportData.beginTime = eTime;
+      transportData.reportPageView(repData);
     }
   },
   handleUnhandleRejection(ev: PromiseRejectionEvent): void {
@@ -127,7 +149,7 @@ const HandleEvents = {
       name: ERRORTYPES.PROMISE_ERROR,
       message: unknownToString(ev.reason),
       url: getLocationHref(),
-      errorname: ev.type,
+      errorName: ev.type,
       timestamp: getTimestamp(),
       level: Severity.Low
     }

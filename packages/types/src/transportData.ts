@@ -30,7 +30,7 @@ export interface ReportDataType extends ICommonDataType {
   name?: string
   message?: string
   url: string
-  errorname?: string
+  errorName?: string
   stack?: any
   timestamp?: number
   errorId?: number
@@ -68,6 +68,19 @@ export interface TrackReportData extends ICommonDataType {
   durationTime?: number
   // 上报时间
   trackTime?: number
+}
+
+export interface PageViewReportData extends ICommonDataType {
+  //唯一标识
+  name?:string
+  // 页面名称
+  pageName?: string
+  // 页面停留时长 ms（最大计算10s）
+  pageTime?: number
+  // 持续时长
+  time?: number
+  //记录时间
+  timestamp?: number
 }
 
 export function isReportDataType(data: ReportDataType | TrackReportData): data is ReportDataType {

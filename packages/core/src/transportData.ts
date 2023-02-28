@@ -1,8 +1,8 @@
-import { _support, validateOption, logger, isBrowserEnv, variableTypeDetection, Queue, isEmpty } from '../../utils/src/index'
+import { _support, validateOption, logger, isBrowserEnv, variableTypeDetection, Queue, isEmpty,analyseReoprtData,encodeURIParams, getTimestamp} from '../../utils/src/index'
 import { createErrorId } from './errorId'
 import { SDK_NAME, SDK_VERSION } from '../../shared/src/index'
 import { breadcrumb } from './breadcrumb'
-import { AuthInfo, TransportDataType, EMethods, InitOptions, isReportDataType, DeviceInfo, FinalReportType } from '../../types/src/index'
+import { AuthInfo, TransportDataType, EMethods, InitOptions, isReportDataType, DeviceInfo, FinalReportType,PageViewReportData } from '../../types/src/index'
 /**
  * 用来传输数据类，包含img标签、xhr请求
  * 功能：支持img请求和xhr请求、可以断点续存（保存在localstorage），
@@ -23,17 +23,19 @@ export class TransportData {
   trackKey = ''
   errorDsn = ''
   trackDsn = ''
+  beginTime= getTimestamp()
+
   constructor() {
     this.queue = new Queue()
   }
-  imgRequest(data: any, url: string): void {
-    const requestFun = () => {
+  imgRequest(data: string, url: string): void {
+    // const requestFun = () => {
       let img = new Image()
-      const spliceStr = url.indexOf('?') === -1 ? '?' : '&'
-      img.src = `${url}${spliceStr}data=${encodeURIComponent(JSON.stringify(data))}`
+      // const spliceStr = url.indexOf('?') === -1 ? '?' : '&'
+      img.src = `${url}${data}`
       img = null
-    }
-    this.queue.addFn(requestFun)
+    // }
+    // this.queue.addFn(requestFun)
   }
   getRecord(): any[] {
     const recordData = _support.record
@@ -170,15 +172,47 @@ export class TransportData {
     }
     const result = await this.beforePost(data)
     if (!result) return
+    let baseMData={};
     if (typeof this.configReportUrl === 'function') {
-      dsn = this.configReportUrl(result, dsn)
-      if (!dsn) return
+      var backData = this.configReportUrl(result, dsn)
+      if (!backData) return
+      baseMData = backData;
     }
+    const repData = analyseReoprtData(result,baseMData);
+    const repDataString = encodeURIParams(repData);
 
     if (isBrowserEnv) {
-        return this.useImgUpload ? this.imgRequest(result, dsn) : this.xhrPost(result, dsn)
+        return this.useImgUpload ? this.imgRequest(repDataString, dsn) : this.xhrPost(result, dsn)
     }
   }
+    /**
+   * 上报页面时长统计
+   * @param data 上报数据格式
+   * @returns
+   */
+  async reportPageView(data:PageViewReportData) {
+      let dsn = this.errorDsn
+      if (isEmpty(dsn)) {
+        logger.error('dsn为空，没有传入监控错误上报的dsn地址，请在init中传入')
+        return
+      }
+   
+      let baseMData={};
+      if (typeof this.configReportUrl === 'function') {
+        var backData = this.configReportUrl(data, dsn)
+        if (!backData) return
+        baseMData = backData;
+      }
+      const repData = {
+        ...data,
+        ...baseMData
+      }
+      const repDataString = encodeURIParams(repData);
+      if (isBrowserEnv) {
+          return  this.imgRequest(repDataString, dsn) 
+      }
+   }
+
 }
 const transportData = _support.transportData || (_support.transportData = new TransportData())
 export { transportData }

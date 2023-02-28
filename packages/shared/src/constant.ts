@@ -3,17 +3,18 @@ export type voidFun = () => void
  * 上报错误类型
  */
 export enum ERRORTYPES {
-  UNKNOWN = 'UNKNOWN',
-  UNKNOWN_FUNCTION = 'UNKNOWN_FUNCTION',
-  JAVASCRIPT_ERROR = 'JAVASCRIPT_ERROR',
-  LOG_ERROR = 'LOG_ERROR',
-  FETCH_ERROR = 'HTTP_ERROR',
-  VUE_ERROR = 'VUE_ERROR',
-  REACT_ERROR = 'REACT_ERROR',
-  RESOURCE_ERROR = 'RESOURCE_ERROR',
-  PROMISE_ERROR = 'PROMISE_ERROR',
-  ROUTE_ERROR = 'ROUTE_ERROR',
-  LOG_INFO = 'LOG_INFO',
+  UNKNOWN = 'unknow',
+  UNKNOWN_FUNCTION = 'unknow-function',
+  JAVASCRIPT_ERROR = 'javascript-error',
+  LOG_ERROR = 'log-error',
+  FETCH_ERROR = 'http-error',
+  VUE_ERROR = 'vue-error',
+  REACT_ERROR = 'react-error',
+  RESOURCE_ERROR = 'resource-error',
+  PROMISE_ERROR = 'promise-error',
+  ROUTE_ERROR = 'route-error',
+  LOG_INFO = 'log-info',
+  PAGE_VIEW = 'time-on-page'
 }
 
 export enum WxAppEvents {
