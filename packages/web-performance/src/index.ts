@@ -20,7 +20,7 @@ import { initNetworkInfo } from './metrics/getNetworkInfo'
 import { initPageInfo } from './metrics/getPageInfo'
 import { initFP } from './metrics/getFP'
 import { initFCP } from './metrics/getFCP'
-import { initFID } from './metrics/getFID'
+// import { initFID } from './metrics/getFID'
 import { initLCP } from './metrics/getLCP'
 import { initFPS } from './metrics/getFPS'
 import { initCLS } from './metrics/getCLS'
@@ -76,7 +76,7 @@ class WebVitals implements IWebVitals {
 
     afterLoad(() => {
       initNavigationTiming(metricsStore, reporter, immediately)
-      initFID(metricsStore, reporter, immediately, scoreConfig)
+      // initFID(metricsStore, reporter, immediately, scoreConfig)
       initFPS(metricsStore, reporter, logFpsCount, immediately)
     })
 
