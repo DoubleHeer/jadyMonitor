@@ -174,7 +174,7 @@ export class TransportData {
     if (!result) return
     let baseMData={};
     if (typeof this.configReportUrl === 'function') {
-      var backData = this.configReportUrl(result, dsn)
+      let backData = this.configReportUrl(result, dsn)
       if (!backData) return
       baseMData = backData;
     }
@@ -199,7 +199,7 @@ export class TransportData {
    
       let baseMData={};
       if (typeof this.configReportUrl === 'function') {
-        var backData = this.configReportUrl(data, dsn)
+        let backData = this.configReportUrl(data, dsn)
         if (!backData) return
         baseMData = backData;
       }

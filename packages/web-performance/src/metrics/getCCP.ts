@@ -141,18 +141,18 @@ const afterHandler = (url, apiConfig, store, hashHistory, excludeRemotePath, sco
 const reportMetrics = (store: metricsStore, report) => {
   if (reportLock) {
     const act = store.get(metricsName.ACT)
-    const ccp = store.get(metricsName.CCP)
+    // const ccp = store.get(metricsName.CCP)
     // const rl = store.get(metricsName.RL)
-    if (act && ccp) {
-      if (act.value < ccp.value) {
+    if (act) {
+      // if (act.value < ccp.value) {
      
         report(act)
-        report(ccp)
+        // report(ccp)
 
         // if (rl) {
         //   report(rl)
         // }
-      }
+      // }
     }
 
     // if (!act && ccp) {

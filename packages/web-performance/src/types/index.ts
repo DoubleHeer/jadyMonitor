@@ -2,7 +2,6 @@ export interface IConfig {
   pid?: string
   sessionId?:string
   dsn?:string
-  appId?: string
   version?: string
   // reportCallback: Function
   beforeReportHandle:Function
@@ -55,15 +54,15 @@ export interface IEffectiveType {
 }
 
 export interface IPageInformation {
-  host: string
-  hostname: string
+  // host: string
+  // hostname: string
   href: string
-  protocol: string
-  origin: string
-  port: string
-  pathname: string
-  search: string
-  hash: string
+  // protocol: string
+  // origin: string
+  // port: string
+  // pathname: string
+  // search: string
+  // hash: string
   userAgent?: string
   screenResolution: string
 }
@@ -110,10 +109,9 @@ export interface OnPageChangeCallback {
 export interface IReportData {
   sessionId: string
   pid:string
-  appId?: string
   version?: string
   data: IMetrics | IMetricsObj
-  timestamp: number
+  creationDate: number
 }
 
 export interface IMetricsObj {

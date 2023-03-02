@@ -40,10 +40,6 @@ export interface InitOptions extends SilentEventTypes, HooksTypes, BrowserHooksT
    */
   sessionId?: string;
   /**
-   * 每个项目有一个唯一id
-   */
-  appId?: string;
-  /**
    * 使用img上报的方式，默认为false，默认是xhr的上报方式
    */
   useImgUpload?: boolean

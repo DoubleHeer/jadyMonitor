@@ -9,14 +9,13 @@ import { analyseReoprtData,encodeURIParams} from '../../../utils/src/index'
  * @returns {IReportHandler}
  */
 const createReporter =
-  (sessionId: string, pid: string, appId: string, dsn: string, beforeReportHCall: Function): IReportHandler =>
+  (sessionId: string, pid: string, dsn: string, beforeReportHCall: Function): IReportHandler =>
   (data: IMetrics | IMetricsObj) => {
     const reportData: IReportData = {
       sessionId,
       pid,
-      appId,
       data,
-      timestamp: +new Date()
+      creationDate: +new Date()
     }
     if(!beforeReportHCall)return
 

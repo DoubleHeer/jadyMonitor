@@ -14,16 +14,16 @@ import createReporter from './lib/createReporter'
 import MetricsStore from './lib/store'
 import { measure } from './lib/measureCustomMetrics'
 import { setMark, clearMark, getMark, hasMark } from './lib/markHandler'
-import { initNavigationTiming } from './metrics/getNavigationTiming'
-import { initDeviceInfo } from './metrics/getDeviceInfo'
-import { initNetworkInfo } from './metrics/getNetworkInfo'
+// import { initNavigationTiming } from './metrics/getNavigationTiming'
+// import { initDeviceInfo } from './metrics/getDeviceInfo'
+// import { initNetworkInfo } from './metrics/getNetworkInfo'
 import { initPageInfo } from './metrics/getPageInfo'
 import { initFP } from './metrics/getFP'
-import { initFCP } from './metrics/getFCP'
+// import { initFCP } from './metrics/getFCP'
 // import { initFID } from './metrics/getFID'
-import { initLCP } from './metrics/getLCP'
-import { initFPS } from './metrics/getFPS'
-import { initCLS } from './metrics/getCLS'
+// import { initLCP } from './metrics/getLCP'
+// import { initFPS } from './metrics/getFPS'
+// import { initCLS } from './metrics/getCLS'
 import { initCCP } from './metrics/getCCP'
 
 let metricsStore: MetricsStore
@@ -37,7 +37,6 @@ class WebVitals implements IWebVitals {
       pid,
       sessionId,
       dsn,
-      appId,
       version,
       // reportCallback,
       beforeReportHandle,
@@ -55,29 +54,29 @@ class WebVitals implements IWebVitals {
 
     // const sessionId = generateUniqueID()
     window.__monitor_sessionId__ = sessionId
-    reporter = createReporter(sessionId, pid, appId, dsn, beforeReportHandle)
+    reporter = createReporter(sessionId, pid, dsn, beforeReportHandle)
     metricsStore = new MetricsStore()
 
     initPageInfo(metricsStore, reporter, immediately)
-    initNetworkInfo(metricsStore, reporter, immediately)
-    initDeviceInfo(metricsStore, reporter, immediately)
-    initCLS(metricsStore, reporter, immediately, scoreConfig)
-    initLCP(metricsStore, reporter, immediately, scoreConfig)
+    // initNetworkInfo(metricsStore, reporter, immediately)
+    // initDeviceInfo(metricsStore, reporter, immediately)
+    // initCLS(metricsStore, reporter, immediately, scoreConfig)
+    // initLCP(metricsStore, reporter, immediately, scoreConfig)
     initCCP(metricsStore, reporter, isCustomEvent, apiConfig, hashHistory, excludeRemotePath, maxWaitCCPDuration, immediately, scoreConfig)
 
     addEventListener(
       isCustomEvent ? 'custom-contentful-paint' : 'pageshow',
       () => {
         initFP(metricsStore, reporter, immediately, scoreConfig)
-        initFCP(metricsStore, reporter, immediately, scoreConfig)
+        // initFCP(metricsStore, reporter, immediately, scoreConfig)
       },
       { once: true, capture: true }
     )
 
     afterLoad(() => {
-      initNavigationTiming(metricsStore, reporter, immediately)
+      // initNavigationTiming(metricsStore, reporter, immediately)
       // initFID(metricsStore, reporter, immediately, scoreConfig)
-      initFPS(metricsStore, reporter, logFpsCount, immediately)
+      // initFPS(metricsStore, reporter, logFpsCount, immediately)
     })
 
     // if immediately is false,report metrics when visibility and unload

@@ -21,7 +21,7 @@ export interface MITOHttp {
   sTime?: number
   elapsedTime?: number
   responseText?: any
-  timestamp?: number
+  creationDate?: number
   isSdkUrl?: boolean
   // for wx
   errMsg?: string

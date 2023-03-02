@@ -36,7 +36,7 @@ export function log({ message = 'emptyMsg', tag = '', level = Severity.Info, ex 
     message: unknownToString(message),
     name: 'jamito-log',
     customTag: unknownToString(tag),
-    timestamp: getTimestamp(),
+    creationDate: getTimestamp(),
     url: getLocationHref(),
     ...errorInfo
   }

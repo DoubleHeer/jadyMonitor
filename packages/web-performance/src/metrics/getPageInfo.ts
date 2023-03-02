@@ -26,15 +26,15 @@ const getPageInfo = (): IPageInformation => {
   const { width, height } = window.screen
 
   return {
-    host,
-    hostname,
+    // host,
+    // hostname,
     href,
-    protocol,
-    origin,
-    port,
-    pathname,
-    search,
-    hash,
+    // protocol,
+    // origin,
+    // port,
+    // pathname,
+    // search,
+    // hash,
     userAgent: 'userAgent' in navigator ? navigator.userAgent : '',
     screenResolution: `${width}x${height}`
   }
@@ -47,7 +47,6 @@ const getPageInfo = (): IPageInformation => {
  * */
 export const initPageInfo = (store: metricsStore, report: IReportHandler, immediately = true): void => {
   const pageInfo: IPageInformation = getPageInfo()
-
   const metrics = { name: metricsName.PI, value: pageInfo } as IMetrics
 
   store.set(metricsName.PI, metrics)

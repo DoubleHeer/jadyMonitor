@@ -6,7 +6,7 @@ import { breadcrumb } from './breadcrumb'
 
 export function httpTransform(data: MITOHttp): ReportDataType {
   let message = ''
-  const { elapsedTime, timestamp, method, traceId, type, status } = data
+  const { elapsedTime, creationDate, method, traceId, type, status } = data
   const errorName = `${type}--${method}`
   if (status === 0) {
     message =
@@ -18,7 +18,7 @@ export function httpTransform(data: MITOHttp): ReportDataType {
   return {
     name: ERRORTYPES.FETCH_ERROR,
     url: getLocationHref(),
-    timestamp,
+    creationDate,
     elapsedTime,
     level: Severity.Low,
     message,
@@ -48,7 +48,7 @@ export function resourceTransform(target: ResourceErrorTarget): ReportDataType {
     url: getLocationHref(),
     message: '资源地址: ' + (interceptStr(target.src, 120) || interceptStr(target.href, 120)),
     level: Severity.Low,
-    timestamp: getTimestamp(),
+    creationDate: getTimestamp(),
     errorName: `${resourceMap[target.localName] || target.localName}加载失败`
   }
 }

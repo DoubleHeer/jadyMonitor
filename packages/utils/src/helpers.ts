@@ -125,22 +125,23 @@ export const throttle = (fn: Function, delay: number): Function => {
  * ../returns 返回单层json对象
  */
 export function analyseReoprtData(metrics:any,baseMData:any):any{
-  var data = metrics.data;
-  var reportData = {
-      timestamp:metrics.timestamp,
+  let data = metrics.data;
+  let reportData = {
+    creationDate:metrics.creationDate?metrics.creationDate:data.creationDate,
       ...baseMData
   }
   const keys = Object.keys(data);
   for (let i = 0; i < keys.length; i++) {
-      if (Object.prototype.toString.call(data[keys[i]]) === '[object Array]') {
+      if (Object.prototype.toString.call(data[keys[i]]) === '[object Array]'||Object.prototype.toString.call(data[keys[i]]) === '[object Undefined]') {
           continue;
       }
       if( Object.prototype.toString.call(data[keys[i]]) === '[object Object]'){
-          var subItem = data[keys[i]];
+          let subItem = data[keys[i]];
           const subkeys = Object.keys(subItem);
           for (let j = 0; j < subkeys.length; j++) {
               if ( (Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Object]')
-              || (Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Array]')) {
+              || (Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Array]'
+              ||Object.prototype.toString.call(subItem[subkeys[j]]) === '[object Undefined]')) {
                continue;
               }
               reportData[subkeys[j]] = subItem[subkeys[j]];

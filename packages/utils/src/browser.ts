@@ -69,7 +69,7 @@ export function setSilentFlag(paramOptions: InitOptions = {}): void {
  */
 export function extractErrorStack(ex: any, level: Severity): ReportDataType {
   const normal = {
-    timestamp: getTimestamp(),
+    creationDate: getTimestamp(),
     url: getLocationHref(),
     errorName: ex.name,
     level,

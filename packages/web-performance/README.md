@@ -5,7 +5,7 @@
 
   属性|类型|描述|是否必填|默认值
   |---|---|---|---|---|
-  appId|string|应用标识|否|无
+  pid|string|应用标识|否|无
   version|string|应用版本号|否|无
   reportCallback|上报回调函数|function|是|无
   reportUri|string|提供给sendBeacon使用|否|无

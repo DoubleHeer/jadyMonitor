@@ -23,7 +23,6 @@ function init(options: InitOptions = {}): void {
 
 function initWebVitals(options:InitOptions={}){
   let wvconfig :IConfig= {
-    appId:options.appId,
     pid:options.pid,
     dsn:options.dsn,
     sessionId:options.sessionId,

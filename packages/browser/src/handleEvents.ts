@@ -15,7 +15,7 @@ const HandleEvents = {
       category: breadcrumb.getCategory(type),
       data: { ...result },
       level: Severity.Info,
-      timestamp: data.timestamp
+      creationDate: data.creationDate
     })
     if (isError) {
       breadcrumb.push({
@@ -23,7 +23,7 @@ const HandleEvents = {
         category: breadcrumb.getCategory(BREADCRUMBTYPES.CODE_ERROR),
         data: { ...result },
         level: Severity.Error,
-        timestamp: data.timestamp
+        creationDate: data.creationDate
       })
       transportData.send(result)
     }
@@ -82,7 +82,7 @@ const HandleEvents = {
       name,
       message: msg,
       level: Severity.Normal,
-      timestamp: getTimestamp()
+      creationDate: getTimestamp()
       // stack: [element]
     }
   },
@@ -107,9 +107,9 @@ const HandleEvents = {
       const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
       let repData: PageViewReportData = {
         name: ERRORTYPES.PAGE_VIEW,
-        pageName: from,
+        pagePathName: from,
         pageTime: pageTime,
-        timestamp: getTimestamp()
+        creationDate: getTimestamp()
       }
       transportData.beginTime = eTime;
       transportData.reportPageView(repData);
@@ -136,9 +136,9 @@ const HandleEvents = {
       const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
       let repData: PageViewReportData = {
         name: ERRORTYPES.PAGE_VIEW,
-        pageName: from,
+        pagePathName: from,
         pageTime: pageTime,
-        timestamp: getTimestamp()
+        creationDate: getTimestamp()
       }
       transportData.beginTime = eTime;
       transportData.reportPageView(repData);
@@ -150,7 +150,7 @@ const HandleEvents = {
       message: unknownToString(ev.reason),
       url: getLocationHref(),
       errorName: ev.type,
-      timestamp: getTimestamp(),
+      creationDate: getTimestamp(),
       level: Severity.Low
     }
     if (isError(ev.reason)) {
