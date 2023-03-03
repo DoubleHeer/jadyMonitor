@@ -52,7 +52,8 @@ export function QUANTILE_AT_VALUE(curve: Curve, value): number {
   const shape = Math.sqrt(1 - 3 * logRatio - Math.sqrt((logRatio - 3) * (logRatio - 3) - 8)) / 2
 
   const standardizedX = (Math.log(value) - location) / (Math.SQRT2 * shape)
-  return (1 - internalErf_(standardizedX)) / 2
+  const result = ((1 - internalErf_(standardizedX)) / 2).toFixed(2);
+  return Number(result);
 }
 
 /**

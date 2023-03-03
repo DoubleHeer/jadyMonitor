@@ -26,7 +26,7 @@ const getDeviceInfo = (): IDeviceInformation | undefined => {
   }
 
   return {
-    deviceMemory: 'deviceMemory' in navigator ? navigator['deviceMemory'] : 0,
+    // deviceMemory: 'deviceMemory' in navigator ? navigator['deviceMemory'] : 0,
     hardwareConcurrency: 'hardwareConcurrency' in navigator ? navigator['hardwareConcurrency'] : 0,
     jsHeapSizeLimit: 'memory' in performance ? convertToMB(performance['memory']['jsHeapSizeLimit']) : 0,
     totalJSHeapSize: 'memory' in performance ? convertToMB(performance['memory']['totalJSHeapSize']) : 0,

@@ -4,12 +4,36 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsc",
+    "build": "webpack"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "author": "heerdy",
   "license": "ISC",
   "dependencies": {
     "core-js": "^3.19.1",
-    "path-to-regexp": "^6.2.0"
-  }
+    "path-to-regexp": "^6.2.0",
+    "@babel/polyfill": "^7.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@types/node": "^14.0.4",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoubleHeer/jadyMonitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DoubleHeer/jadyMonitor/issues"
+  },
+  "homepage": "https://github.com/DoubleHeer/jadyMonitor#readme"
 }

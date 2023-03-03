@@ -32,7 +32,7 @@ export interface IPerformanceNavigationTiming {
 }
 
 export interface IDeviceInformation {
-  deviceMemory?: number
+  // deviceMemory?: number
   hardwareConcurrency?: number
   jsHeapSizeLimit?: number
   totalJSHeapSize?: number
