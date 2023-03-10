@@ -22,7 +22,7 @@ const createReporter =
     if ('requestIdleCallback' in window) {
       ;(window as any).requestIdleCallback(
         () => {
-          var backData= beforeReportHCall(reportData,dsn)
+          let backData= beforeReportHCall(reportData,dsn)
           if(!backData)return
           const repData = analyseReoprtData(reportData,backData);
           const repDataString = encodeURIParams(repData);
@@ -31,7 +31,7 @@ const createReporter =
         { timeout: 3000 }
       )
     } else {
-      var backData= beforeReportHCall(reportData,dsn)
+      let backData= beforeReportHCall(reportData,dsn)
       if(!backData)return
       const repData = analyseReoprtData(reportData,backData);
       const repDataString = encodeURIParams(repData);

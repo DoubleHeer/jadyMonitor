@@ -18,8 +18,8 @@ import { setMark, clearMark, getMark, hasMark } from './lib/markHandler'
 // import { initDeviceInfo } from './metrics/getDeviceInfo'
 // import { initNetworkInfo } from './metrics/getNetworkInfo'
 import { initPageInfo } from './metrics/getPageInfo'
-import { initFP } from './metrics/getFP'
-// import { initFCP } from './metrics/getFCP'
+// import { initFP } from './metrics/getFP'
+import { initFCP } from './metrics/getFCP'
 // import { initFID } from './metrics/getFID'
 // import { initLCP } from './metrics/getLCP'
 // import { initFPS } from './metrics/getFPS'
@@ -46,7 +46,7 @@ class WebVitals implements IWebVitals {
       apiConfig = {},
       hashHistory = true,
       excludeRemotePath = [],
-      maxWaitCCPDuration = 30 * 1000,
+      maxWaitCCPDuration = 10 * 1000,
       scoreConfig = {}
     } = config
 
@@ -67,8 +67,8 @@ class WebVitals implements IWebVitals {
     addEventListener(
       isCustomEvent ? 'custom-contentful-paint' : 'pageshow',
       () => {
-        initFP(metricsStore, reporter, immediately, scoreConfig)
-        // initFCP(metricsStore, reporter, immediately, scoreConfig)
+        // initFP(metricsStore, reporter, immediately, scoreConfig)
+        initFCP(metricsStore, reporter, immediately, scoreConfig)
       },
       { once: true, capture: true }
     )
@@ -97,6 +97,7 @@ class WebVitals implements IWebVitals {
   private static dispatchCustomEvent(): void {
     const event = document.createEvent('Events')
     event.initEvent('custom-contentful-paint', false, true)
+    // const event = new Event('custom-contentful-paint', {});
     document.dispatchEvent(event)
   }
 

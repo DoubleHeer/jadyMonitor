@@ -115,7 +115,7 @@ const afterHandler = (url, apiConfig, store, hashHistory, excludeRemotePath, sco
               // storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
               //先改为只传时间
               storeMetrics(metricsName.ACT, now, store, scoreConfig)
-              computeCCPAndRL(store, scoreConfig)
+              // computeCCPAndRL(store, scoreConfig)
             }
           }
         } else {
@@ -127,7 +127,7 @@ const afterHandler = (url, apiConfig, store, hashHistory, excludeRemotePath, sco
               // storeMetrics(metricsName.ACT, { time: now, remoteApis: remoteQueue.queue }, store, scoreConfig)
               //先改为只传时间
               storeMetrics(metricsName.ACT, now, store, scoreConfig)
-              computeCCPAndRL(store, scoreConfig)
+              // computeCCPAndRL(store, scoreConfig)
             }
           }
         }
@@ -211,7 +211,7 @@ export const initCCP = (
               //先改为只传时间
               storeMetrics(metricsName.ACT, performance.now(), store, scoreConfig)
             }
-            computeCCPAndRL(store, scoreConfig)
+            // computeCCPAndRL(store, scoreConfig)
           }
         }
       }
