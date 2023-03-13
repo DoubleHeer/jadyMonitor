@@ -27,7 +27,7 @@ function initWebVitals(options:InitOptions={}){
     dsn:options.dsn,
     sessionId:options.sessionId,
     beforeReportHandle:options.configReportUrl,
-    maxWaitCCPDuration:30 * 1000,
+    maxWaitCCPDuration:10 * 1000,
     immediately: true
   }
   const wi = new WebVitals(wvconfig);

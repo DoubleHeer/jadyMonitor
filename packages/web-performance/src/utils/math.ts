@@ -1,5 +1,5 @@
 import { Curve } from '../types'
-
+import { roundByFour } from '../utils'
 /**
  * Approximates the Gauss error function, the probability that a random variable
  * from the standard normal distribution lies within [-x, x]. Moved from
@@ -52,8 +52,8 @@ export function QUANTILE_AT_VALUE(curve: Curve, value): number {
   const shape = Math.sqrt(1 - 3 * logRatio - Math.sqrt((logRatio - 3) * (logRatio - 3) - 8)) / 2
 
   const standardizedX = (Math.log(value) - location) / (Math.SQRT2 * shape)
-  const result = ((1 - internalErf_(standardizedX)) / 2).toFixed(2);
-  return Number(result);
+  const result = roundByFour((1 - internalErf_(standardizedX)) / 2);
+  return result;
 }
 
 /**

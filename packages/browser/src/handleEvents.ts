@@ -103,16 +103,17 @@ const HandleEvents = {
     if (onRouteChange) {
       onRouteChange(from, to)
     } else {
-      const eTime = getTimestamp();
-      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
+      const eTime = getTimestamp()
+      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime
+      if(pageTime<10)return
       let repData: PageViewReportData = {
         name: ERRORTYPES.PAGE_VIEW,
         pagePathName: from,
         pageTime: pageTime,
         creationDate: getTimestamp()
       }
-      transportData.beginTime = eTime;
-      transportData.reportPageView(repData);
+      transportData.beginTime = eTime
+      transportData.reportPageView(repData)
     }
   },
   handleHashchange(data: HashChangeEvent): void {
@@ -132,16 +133,17 @@ const HandleEvents = {
     if (onRouteChange) {
       onRouteChange(from, to)
     } else {
-      const eTime = getTimestamp();
-      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime;
+      const eTime = getTimestamp()
+      const pageTime = (eTime-transportData.beginTime)>10000?10000:eTime-transportData.beginTime
+      if(pageTime<10)return
       let repData: PageViewReportData = {
         name: ERRORTYPES.PAGE_VIEW,
         pagePathName: from,
         pageTime: pageTime,
         creationDate: getTimestamp()
       }
-      transportData.beginTime = eTime;
-      transportData.reportPageView(repData);
+      transportData.beginTime = eTime
+      transportData.reportPageView(repData)
     }
   },
   handleUnhandleRejection(ev: PromiseRejectionEvent): void {
