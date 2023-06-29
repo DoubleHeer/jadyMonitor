@@ -29,6 +29,9 @@ export function createErrorId(data: ReportDataType, pid: string): number | null 
       break
   }
   id = hashCode(id)
+  if(data.name == ERRORTYPES.TRANK_LOG){
+    return id
+  }
   if (allErrorNumber[id] >= options.maxDuplicateCount) {
     return null
   }

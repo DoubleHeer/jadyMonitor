@@ -14,7 +14,8 @@ export enum ERRORTYPES {
   PROMISE_ERROR = 'promise-error',
   ROUTE_ERROR = 'route-error',
   LOG_INFO = 'log-info',
-  PAGE_VIEW = 'time-on-page'
+  PAGE_VIEW = 'time-on-page',
+  TRANK_LOG ='jamito-log'
 }
 
 export enum WxAppEvents {
